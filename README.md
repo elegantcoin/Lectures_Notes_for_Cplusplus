@@ -1124,7 +1124,8 @@ void Test6()
 	答:0×801010 用二进制表示为:"1000 0000 0001 0000 0001 0000",
 	十进制的值为8392720, 再加上5就是8392725
 
-26、给定结构 
+26、给定结构
+```C++ 
 	struct A
 	{
 		char t:4; 
@@ -1132,10 +1133,11 @@ void Test6()
 		unsigned short i:8;
 		unsigned long m;
 	};
-	
+```	
 	问 sizeof(A) = ?
 		
 	给定结构 
+```C++
 	struct A
 	{
 		char t:4;//4位
@@ -1143,23 +1145,25 @@ void Test6()
 		unsigned short i:8; //8位
 		unsigned long m; // 偏移2字节保证4字节对齐
 	}; // 共8字节，
-
+```
 	变量后面加: 然后加数字表示位域，也就是说着代表按位来存放的，不是按字节，这是计算机为了节约空间的一种方式。
 	char是一个字节(8个位)，所以 t和k 加起来刚好8个位，也就是一个字节。然后short 一共16个位放了8个，剩下8个不够后面long存放，
 	所以算两个字节。因为long在32是4个字节，所以一共 1 +2 +4 = 7 。然后进行结构体对齐，所以就是8. 
 
 27、下面的函数实现在一个数上加一个数,有什么错误？请改正。
+```C++
 	int add_n ( int n )
 	{
 		static int i = 100;
 		i += n;
 		return i;
 	}
+```
 
 	当你第二次调用时得不到正确的结果,难道你写个函数就是为了调用一次？问题就出在static 上
 
 28、给出下面程序的答案
-	
+```C++
 	typedef struct AA
 	{
 		int b1:5; 
@@ -1174,6 +1178,7 @@ void Test6()
 		memcpy(&aa,cc,sizeof(AA));
 		cout << aa.b1 < cout << aa.b2 <<end;
 	}
+```
 
 	答案是 -16和１
 
@@ -1182,6 +1187,7 @@ void Test6()
 	所以,最后一步:显示的是这４个字节的前５位,和之后的２位分别为:10000,和01因为 int 是有正负之分,所以:答案是-16和１
 
 29、求函数返回值,输入x=9999; 
+```C++
 	int func （ x ）
 	{
 		int countx = 0; 
@@ -1192,7 +1198,7 @@ void Test6()
 		}
 		return countx;
 	}
-	
+```	
 	结果呢？知道了这是统计9999的二进制数值中有多少个1的函数,且有 9999＝9×1024 ＋512＋256＋15
 
 	9×1024 中含有1的个数为2;
@@ -1203,6 +1209,7 @@ void Test6()
 	1000 - 1 = 0111,正好是原数取反。这就是原理。用这种方法来求1的个数是很效率很高的。不必去一个一个地移位。循环次数最少。
 
 30、分析: 
+```C++
 	struct bit
 	{
 		int a:3; 
@@ -1219,7 +1226,7 @@ void Test6()
 		int a=-1;
 		printf("%x",a); return 0;
 	}
-
+```
 	输出为什么是
 	4
 	1
@@ -1232,7 +1239,7 @@ void Test6()
 	同理 b = -1; 当 c 为有符号数时, c = 100,即 c = 4,同理 b = 3
 
 31、下面这个程序执行后会有什么错误或者效果:
-
+```C++
 	#define MAX 255 
 	int main()
 	{
@@ -1240,13 +1247,14 @@ void Test6()
 		for (i=0;i<=MAX;i++)
 			A[i]=i;
 	}
-
+```
 	解答:死循环加数组越界访问（C/C++不进行数组越界检查）
 	MAX=255 数组A 的下标范围为:0..MAX-1,这是其一.. 其二.当 i 循环到255时,循环内执行:A[255]=255;
 	这句本身没有问题..但是返回 for (i=0;i<=MAX;i++)语句时,由于 unsigned char 的取值范围在(0..255),
 	i++以后 i 又为0了..无限循环下去. 
 
 32、写出 sizeof(struct name1)=,sizeof(struct name2)=的结果
+```C++
 	struct name1{ 
 		char str;
 		short x;
@@ -1258,13 +1266,15 @@ void Test6()
 		int num; 
 		short x;
 	}
-		
+```
 	sizeof(struct name1)=8, sizeof(struct name2)=12
 
 	在第二个结构中,为保证num 按四个字节对齐,char 后必须留出3字节的空间;同时为保证整个结构的自然对齐（这里是4字节对齐）,
 	在 x 后还要补齐2个字节,这样就是12字节。 
 
-33、struct s1
+33、
+```C++
+struct s1
 	{
 		int i: 8;
 		int j: 4;
@@ -1276,7 +1286,10 @@ void Test6()
 		int i: 8;
 		int j: 4; double b; int a:3;
 	};
-	printf("sizeof(s1)= %d\n", sizeof(s1)); printf("sizeof(s2)= %d\n", sizeof(s2)); result: 16, 24
+	printf("sizeof(s1)= %d\n", sizeof(s1)); 
+	printf("sizeof(s2)= %d\n", sizeof(s2)); 
+```
+	result: 16, 24
 		第一个 struct s1
 	{
 		int i: 8;
@@ -1290,6 +1303,7 @@ void Test6()
 	第二个最后会对照是不是结构体内最大数据的倍数,不是的话,会补成是最大数据的倍数
 
 34、在对齐为4的情况下
+```C++
 	struct BBB
 	{
 		long num; 
@@ -1298,7 +1312,7 @@ void Test6()
 		char ha;
 		short ba[5];
 	}*p;
-
+```
 	p=0x1000000; 
 	p+0x200=  ;
 	(Ulong)p+0x200=         ; 
@@ -1317,6 +1331,7 @@ void Test6()
 	(char*)p+0x200=     ;= 0x1000000 + 0x200*4
 
 35、找错
+```C++
 	Void test1()
 	{
 		char string[10];
@@ -1340,8 +1355,9 @@ void Test6()
 			strcpy(string, str1);
 		}
 	}
-
+```
 36、写出输出结果
+```C++
 	void g(int**);
 	int main()
 	{
@@ -1361,7 +1377,7 @@ void Test6()
 		(**p)++; 
 		(*p)++;// 无效
 	}
-
+```
 	输出:
 		1
 		2
@@ -1375,6 +1391,7 @@ void Test6()
 		10
 
 37、写出程序运行结果
+```C++
 	int sum(int a)
 	{
 		auto int c=0; 
@@ -1393,8 +1410,9 @@ void Test6()
 		}
 	}
 	// static 会保存上次结果,记住这一点,剩下的自己写输出:8,10,12,14,16
-
+```
 38、评价代码
+```C++
 	int func(int a)
 	{
 		int b; 
@@ -1407,7 +1425,7 @@ void Test6()
 		}
 		return b;
 	}
-
+```
 	则 func(1)=?
 	// b 定义后就没有赋值,case 没有break
 	int a[3];
@@ -1423,6 +1441,7 @@ void Test6()
 
 
 39、请问一下程序将输出什么结果？ 
+```C++
 	char *RetMemory(void)
 	{
 		char p[] = "hello world";
@@ -1434,10 +1453,11 @@ void Test6()
 		str = RetMemory(); 
 		printf(str);
 	}
-
+```
 	RetMenory 执行完毕,p 资源被回收,指向未知地址。返回地址,str 的内容应是不可预测的, 打印的应该是str 的地址
 
 40、写出输出结果
+```C++
 	typedef struct
 	{
 		int a:2; 
@@ -1451,7 +1471,7 @@ void Test6()
 	printf("%d",t.a); 
 	printf("%d",t.b); 
 	printf("%d",t.c);
-
+```
 	t.a 为01,输出就是1
 	t.b 为11,输出就是－1
 	t.c 为1,输出也是-1
@@ -1463,6 +1483,7 @@ void Test6()
 
 
 41、对下面程序进行分析
+```C++
 	void test2()
 	{
 		char string[10], str1[10]; 
@@ -1473,14 +1494,14 @@ void Test6()
 		}
 		strcpy( string, str1 );
 	}
-
+```
 	解答: 如果面试者指出字符数组 str1不能在数组内结束可以给3分;如果面试者指出strcpy(string, str1)调用使得
 	从str1内存起复制到string 内存起所复制的字节数具有不确定性可以给7分,在此基础上指出库函数 strcpy 工作方式的给10分;
 
 	str1不能在数组内结束:因为 str1的存储为:{a,a,a,a,a,a,a,a,a,a},没有'\0'(字符串结束符),所以不能结束
 	strcpy( char *s1,char *s2)他的工作原理是,扫描 s2指向的内存,逐个字符复到 s1所指向的内存,直到碰到'\0',
 	因为 str1结尾没有'\0',所以具有不确定性,不知道他后面还会复什么东东。正确应如下
-
+```C++
 	void test2()
 	{
 		char string[10], str1[10]; 
@@ -1492,30 +1513,33 @@ void Test6()
 		str[i]='\0';//加上结束符
 		strcpy( string, str1 );
 	}
-
+```
 42、分析:
+```C++
 	int arr[] = {6,7,8,9,10};
 	int *ptr = arr;
 	*(ptr++)+=123;
 	printf(" %d %d ", *ptr, *(++ptr));
-	
+```
 	输出:8 8
 	过程:对于*(ptr++)+=123;先做加法6+123,然后++,指针指向7;对于 printf(" %d %d ", *ptr,*(++ptr));从后往前执行,
 	指针先++,指向8,然后输出8,紧接着再输出8
 
 43、分析下面的代码:	
+```C++
 	char *a = "hello";
 	char *b = "hello"; 
 	if(a=b) 
 		printf("YES"); 
 	else 
 		printf("NO");
-	
+```	
 	这个简单的面试题目,我选输出 no(对比的应该是指针地址吧),可在 VC 是YES，在C 是 NO 的呢,是一个常量字符串。
 	位于静态存储区,它在程序生命期内恒定不变。如果编译器优化的话,会有可能 a 和 b 同时指向同一个 hello 的。
 	则地址相同。如果编译器没有优化,那么就是两个不同的地址,则不同
 
 44、写出输出结果
+```C++
 	#include
 	void foo(int m, int n)
 	{
@@ -1526,13 +1550,14 @@ void Test6()
 		int b = 3; foo(b+=3, ++b);
 		printf("b=%d\n", b); return 0;
 	}
-	
+```	
 	输出:m=7,n=4,b=7(VC6.0)  m=7,n=7,b=7(VC2010)
 	这种方式和编译器中得函数调用关系相关即先后入栈顺序。不过不同 编译器得处理不同。也是因为C 标准中对这种方式说明为未定义,
 	所以各个编译器厂商都有自己得理解,所以最后产生得结果完全不同。因为这样,所以遇见这种函数,我们首先要考虑我们得编译器会如何处理这样得函数,
 	其次看函数得调用方式,不同得调用方式,可能产生不同得结果。最后是看编译器优化。
 
 45、找出错误
+```C++
 	#include string.h 
 	main(void)
 	{
@@ -1547,8 +1572,9 @@ void Test6()
 			d++=s-;
 		printf("%s",dest);
 	}
-
+```
 	找出错误！！ 
+```C++
 	#include "string.h" 
 	#include "stdio.h" 
 	#include "malloc.h" 
@@ -1565,7 +1591,7 @@ void Test6()
 		*d='\0'; 
 		printf("%s",dest);
 	}
-
+```
 
 
 
