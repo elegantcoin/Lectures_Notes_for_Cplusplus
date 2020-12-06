@@ -1595,9 +1595,8 @@ struct s1
 
 
 
+## :fire: 4. 编程题
 
-
-//---------------------第三部分:编程题---------------------
 
 1、读文件 file1.txt 的内容（例如）:
 	12
@@ -1607,7 +1606,7 @@ struct s1
 	56
 	34
 	12
-
+```C++
 	#include 
 	#include
 	int main(void)
@@ -1652,8 +1651,9 @@ struct s1
 		fclose(fp1);
 		fclose(fp2); 
 	}
-
+```
 	对1的另一种做法:
+```C++
 	#include
 	void test(FILE *fread, FILE *fwrite)
 	{
@@ -1673,8 +1673,9 @@ struct s1
 		fclose(fw); 
 		return 0;
 	}
-
+```
 2、输出和为一个给定整数的所有组合例如 n=5 5=1+4;5=2+3（相加的数不能重复） 则输出 1,4;2,3。
+```C++
 	#include
 	int main(void)
 	{
@@ -1706,8 +1707,9 @@ struct s1
 				printf(" %d, %d",i,a-i);
 	}
 
-
-3、递规法反向输出字符串的例子,可谓是反序的经典例程. 
+```
+3、递规法反向输出字符串的例子,可谓是反序的经典例程.
+```C++ 
 	void inverse(char *p)
 	{
 		if( *p == '\0' ) return; 
@@ -1719,14 +1721,14 @@ struct s1
 		inverse("abc\0"); 
 		return 0;
 	}
-	
+```	
 
 4、写一段程序,找出数组中第 k 大小的数,输出数所在的位置。例如{2,4,3,4,7}中, 第一大的数是7,位置在4。第二大、第三大的数都是4,
 位置在1、3随便输出哪一个均可。
 
 	函数接口为:int find_orderk(const int* narry,const int n,const int k) 要求算法复杂度不能是O(n^2） 谢谢！
 	可以先用快速排序进行排序,其中用另外一个进行地址查找代码如下,在VC++6.0运行通过。给分吧^-^ 快速排序 
-	
+```C++
 	#include 
 	using namespacestd;
 	int Partition (int*L,int low,int high)
@@ -1796,8 +1798,9 @@ struct s1
 		}
 		return 0;
 	}
-
+```
 	两路归并排序
+```C++
 	Linklist *unio(Linklist *p,Linklist *q)
 	{ 
 		linklist *R,*pa,*qa,*ra;
@@ -1817,17 +1820,19 @@ struct s1
 		if(qa->next!=NULL) ra->next==qa;
 		return R;
 	}
-
+```
 6、用递归算法判断数组 a[N]是否为一个递增数组。递归的方法,记录当前最大的,并且判断当前的是否比这个还大,大则继续,否则返回 false 结束:
+```C++
 	bool fun( int a[], int n )
 	{
 		if( n==1 ) return true;
 		if( n==2 ) return a[n-1] >= a[n-2];
 		return fun( a,n-1) && ( a[n-1] >= a[n-2] );
 	}
-
+```
 7、单链表的建立,把'a'-'z'26个字母插入到链表中,并且倒叙,还要打印！
 	方法1:
+```C++
 	typedef struct val
 	{
 		int date; 
@@ -1844,8 +1849,9 @@ struct s1
 			}
 		p.next=NULL;
 	}
-
+```
 	方法2:
+```C++
 	node *p = NULL; 
 	node *q = NULL;
 	node *head = (node*)malloc(sizeof(node)); 
@@ -1870,8 +1876,9 @@ struct s1
 		i++;
 	}
 	print(head);
-
+```
 8、请列举一个软件中时间换空间或者空间换时间的例子。
+```C++
 	void swap(int a,int b)
 	{
 		int c; 
@@ -1879,18 +1886,18 @@ struct s1
 		a=b;
 		b=a;
 	}
-
+```
 	—>空优
-
-		void swap(int a,int b)
-
+```C++
+void swap(int a,int b)
 	{
 		a=a+b;
 		b=a-b;
 		a=a-b;
 	}
-
+```
 9、outputstr 所指的值为123456789
+```C++
 	int continumax(char *outputstr, char *inputstr)
 	{
 		char *in = inputstr, *out = outputstr, *temp, *final; 
@@ -1919,8 +1926,9 @@ struct s1
 		*out = '\0'; 
 		return maxlen;
 	}
-
+```
 10、不用库函数,用C 语言实现将一整型数字转化为字符串方法1:
+```C++
 	int getlen(char *s){ int n;
 
 	for(n = 0; *s != '\0'; s++) n++;
@@ -1949,8 +1957,9 @@ struct s1
 		s[i] = '\0'; 
 		reverse(s);
 	}
-
+```
 	方法2:
+```C++
 	#include
 	using namespace std; 
 	void itochar(int num); 
@@ -1982,9 +1991,10 @@ struct s1
 		itochar(num); 
 		return 0;
 	}
-
+```
 11、求组合数: 求 n 个数（1….n）中 k 个数的组合…. 如:combination(5,3) 
 要求输出:543,542,541,532,531,521,432,431,421,321,
+```C++
 	#include
 	int pop(int *); 
 	int push(int );
@@ -2031,8 +2041,10 @@ struct s1
 		else
 			return 1;
 	}
+```
 
 12、用指针的方法,将字符串"ABCD1234efgh"前后对调显示
+```C++
 	#include
 	#include 
 	#include 
@@ -2054,8 +2066,9 @@ struct s1
 		system("pause");
 		return 0;
 	}
-
+```
 13、有一分数序列:1/2,1/4,1/6,1/8……,用函数调用的方法,求此数列前20项的和
+```C++
 	#include
 	double getValue()
 	{
@@ -2074,10 +2087,11 @@ struct s1
 		system("pause");
 		return 0;
 	}
-
+```
 14、有一个数组 a[1000]存放0--1000;要求每隔二个数删掉一个数,到末尾时循环至开头继续进行,求最后一个被删掉的数的原始下标位置。
 	以7个数为例:{0,1,2,3,4,5,6,7}  0-->1->2（删除）->3->4->5(删除)->6->7->0（删除）,如此循环直到最后一个数被删除。
 	方法1:数组
+```C++
 	#include
 	using namespace std; 
 	#define null 1000
@@ -2105,8 +2119,9 @@ struct s1
 			j=(++j)%1000;
 		cout< return 0;
 	}
-
+```
 	方法2:链表
+```C++
 	#include
 	using namespace std; 
 	#define null 0
@@ -2138,8 +2153,9 @@ struct s1
 		cout< data; 
 		return 0;
 	}
-
+```
 	方法3:通用算法
+```C++
 	#include
 	#define MAXLINE 1000 //元素个数
 	/*
@@ -2194,11 +2210,12 @@ struct s1
 	printf("the value is %d,%d\n",index,values); 
 	return 0;
 	}
-
+```
 
 15、实现 strcmp
 	int StrCmp(const char *str1, const char *str2)
 	做是做对了,没有抄搞,比较乱
+```C++
 	int StrCmp(const char *str1, const char *str2)
 	{
 		assert(str1 && srt2);
@@ -2221,10 +2238,11 @@ struct s1
 		while(*str1 && *str1++ == *str2++);
 		return *str1-*str2;
 	}
-
+```C
 16、实现子串定位
 	int FindSubStr(const char *MainStr, const char *SubStr)
 	做是做对了,没有抄搞,比较乱
+```C++
 	int MyStrstr(const char* MainStr, const char* SubStr)
 	{
 		const char *p; 
@@ -2244,8 +2262,9 @@ struct s1
 		}
 		return -1;
 	}
-
+```
 17、已知一个单向链表的头,请写出删除其某一个结点的算法,要求,先找到此结点,然后删除。
+```C++
 	slnodetype *Delete(slnodetype *Head,int key){}
 	if(Head->number==key)
 	{
@@ -2266,8 +2285,9 @@ struct s1
 		if(Head = Node) 
 			while(p)
 	}
-
+```
 18、有1,2,….一直到 n 的无序数组,求排序算法,并且要求时间复杂度为O(n),空间复杂度 O(1),使用交换,而且一次只能交换两个数.（华为）
+```C++
 	#include 
 	int main()
 	{
@@ -2287,8 +2307,9 @@ struct s1
 			p="";
 			return 0;
 	}
-
+```
 19、写出程序把一个链表中的接点顺序倒排
+```C++
 	typedef struct linknode
 	{
 		int data;
@@ -2311,8 +2332,9 @@ struct s1
 		head=p;
 		return head;
 	}
-
+```
 20、写出程序删除链表中的所有接点
+```C++
 	void del_all(node *head)
 	{
 		node *p;
@@ -2324,8 +2346,9 @@ struct s1
 		}
 		cout<<"释放空间成功!"<<endl;
 	}
-
+```
 21、两个字符串,s,t;把 t 字符串插入到 s 字符串中,s 字符串有足够的空间存放 t 字符串
+```C++
 	void insert(char *s, char *t, int i)
 	{
 		char *q = t; 
@@ -2344,8 +2367,9 @@ struct s1
 		}
 		*p = '\0';
 	}
-
+```
 22、写一个函数,功能:完成内存之间的拷贝
+```C++
 	memcpy source code:
 	
 	void* memcpy( void *dst, const void *src, unsigned int len ) 
@@ -2390,7 +2414,7 @@ struct s1
 		}
 		return dst;
 	}
-
+```
 23、公司考试这种题目主要考你编写的代码是否考虑到各种情况,是否安全（不会溢出） 各种情况包括:
 	１、参数是指针,检查指针是否有效
 	２、检查复制的源目标和目的地是否为同一个,若为同一个,则直接跳出
@@ -2399,7 +2423,7 @@ struct s1
 
 	memcpy 拷贝一块内存,内存的大小你告诉它
 	strcpy 是字符串拷贝,遇到'\0'结束
-
+```C++
 	/* memcpy ─── 拷贝不重叠的内存块 */
 	void memcpy(void* pvTo, void* pvFrom, size_t size)
 	{
@@ -2410,8 +2434,9 @@ struct s1
 		*pbTo++ == *pbFrom++; 
 		return(pvTo);
 	}
-
+```
 24、两个字符串,s,t;把 t 字符串插入到 s 字符串中,s 字符串有足够的空间存放 t 字符串
+```C++
 	void insert(char *s, char *t, int i)
 	{
 		memcpy(&s[strlen(t)+i],&s[i],strlen(s)-i); 
@@ -2419,8 +2444,9 @@ struct s1
 		s[strlen(s)+strlen(t)]='\0';
 
 	}
-
+```
 25、编写一个 C 函数,该函数在一个字符串中找到可能的最长的子字符串,且该字符串是由同一字符组成的。
+```C++
 	char * search(char *cpSource, char ch)
 	{
 		char *cpTemp=NULL, *cpDest=NULL;
@@ -2442,17 +2468,19 @@ struct s1
 		}
 		return cpDest;
 	}
-
+```
 26、请编写一个 C 函数,该函数在给定的内存区域搜索给定的字符,并返回该字符所在位置索引值。
+```C++
 	int search(char *cpSource, int n, char ch)
 	{
 		int i; 
 		for(i=0; i<;i++ )
 			return i;
 	}
-
+```
 
 27、给定字符串A 和B,输出 A 和B 中的最大公共子串。比如A="aocdfe" B="pmcdfa" 则输出"cdf"
+```C++
 	*/
 	//Author: azhen 
 	#include
@@ -2489,9 +2517,10 @@ struct s1
 			comman=commanstring(str1, str2);
 		printf("the longest comman string is: %s\n", comman);
 	}
-
+```
 
 28、写一个函数比较两个字符串 str1和 str2的大小,若相等返回0,若 str1大于str2返回1,若 str1小于 str2返回－1
+```C++
 	int strcmp ( const char * src,const char * dst)
 	{
 		int ret = 0 ;
@@ -2504,10 +2533,11 @@ struct s1
 		else if ( ret > 0 ) ret = 1 ;
 		return( ret );
 	}
-
+```
 
 29、求1000！的未尾有几个0（用素数相乘的方法来做,如72=2*2*2*3*3）;求出1->1000里,能被5整除的数的个数n1,
 	能被25整除的数的个数n2,能被125整除的数的个数n3,能被625整除的数的个数n4.1000!末尾的零的个数=n1+n2+n3+n4; 
+```C++
 	#include
 	#define NUM 1000 
 	int find5(int num)
@@ -2532,18 +2562,19 @@ struct s1
 		printf(" the total zero number is %d\n",result); 
 		return 0;
 	}
-
+```
 
 30、有双向循环链表结点定义为:
+```C++
 	struct node
 	{ 
 		int data;
 		struct node *front,*next;
 	};
-
+```
 	有两个双向循环链表 A,B,知道其头指针为:pHeadA,pHeadB,请写一函数将两链表中 data值相同的结点删除
-	
-		BOOL DeteleNode(Node *pHeader, DataType Value)
+```C++
+	BOOL DeteleNode(Node *pHeader, DataType Value)
 	{
 		if (pHeader == NULL) return;
 		BOOL bRet = FALSE;
@@ -2614,9 +2645,9 @@ struct s1
 		}
 
 	}
-
-
+```
 31、编程实现:找出两个字符串中最大公共子字符串,如"abccade","dgcadde"的最大子串为"cad"
+```C++
 	int GetCommon(char *s1, char *s2, char **r1, char **r2)
 	{
 		int len1 = strlen(s1); 
@@ -2641,8 +2672,9 @@ struct s1
 			}
 		}
 
-
+```
 32、编程实现:把十进制数(long 型)分别以二进制和十六进制形式输出,不能使用 printf 系列库函数
+```C++
 	char* test3(long num) {
 		char* buffer = (char*)malloc(11); 
 		buffer[0] = '0';
@@ -2658,7 +2690,7 @@ struct s1
 		return buffer;
 	}
 
-
+```
 33、输入N, 打印 N*N 矩阵比如
 	N = 3,打印:
 		1 2 3
@@ -2671,7 +2703,7 @@ struct s1
 		10 9 8 7
 		
 	解答:
-		
+```C++
 	#define N 15 
 	int s[N][N]; 
 	void main()
@@ -2751,19 +2783,20 @@ struct s1
 			printf("\n");
 		}
 	}
-
+```
 
 34、斐波拉契数列递归实现的方法如下: 
-
+```C++
 	int Funct( int n )
 	{
 		if(n==0) return 1;
 		if(n==1) return 1;
 		retrurn Funct(n-1) + Funct(n-2);
 	}
-
+```
 	请问,如何不使用递归,来实现上述函数？ 请教各位高手！
 	解答:
+```C++
 	int Funct( int n ) // n 为非负整数
 	{
 		int a=0; 
@@ -2782,7 +2815,7 @@ struct s1
 			}
 			return c;
 	}
-
+```
 	解答:
 	现在大多数系统都是将低字位放在前面,而结构体中位域的申明一般是先声明高位。
 	100 的二进制是 001 100 100
@@ -2807,6 +2840,7 @@ struct s1
 
 
 35、判断一个字符串是不是回文
+```C++
 	int IsReverseStr(char *aStr)
 	{
 		int i,j;
@@ -2821,11 +2855,12 @@ struct s1
 			}
 			return found;
 	}
-
+```
 
 36、Josephu 问题为:设编号为1,2,… n 的 n 个人围坐一圈,约定编号为 k（1<=k<=n） 的人从1开始报数,数到 m 的那个人出列,
 	它的下一位又从1开始报数,数到 m 的那个人又出列,依次类推,直到所有人出列为止,由此产生一个出队编号的序列。
 	数组实现: 
+```C++
 	#include 
 	#include
 	int Josephu(int n, int m)
@@ -2859,8 +2894,9 @@ struct s1
 		system("pause");
 		return 0;
 	}
-
+```
 	链表实现: 
+```C++
 	#include 
 	#include
 	typedef struct Node
@@ -2907,13 +2943,14 @@ struct s1
 		system("pause");
 		return 0;
 	}
-
+```
 
 37、已知 strcpy 函数的原型是:char * strcpy(char * strDest,const char * strSrc); 
 	1.不调用库函数,实现 strcpy 函数。
 	2.解释为什么要返回char *。解说:
 	
 	1.strcpy 的实现代码
+```C++
 	char * strcpy(char * strDest,const char * strSrc)
 	{
 		if ((strDest==NULL)||(strSrc==NULL)) 
@@ -2925,7 +2962,7 @@ struct s1
 		file://[/4] 
 		return strDestCopy;
 	}
-
+```
 	错误的做法
 	(A) 不检查指针的有效性,说明答题者不注重代码的健壮性。
 	(B) 检查指针的有效性时使用((!strDest)||(!strSrc))或(!(strDest&&strSrc)),
