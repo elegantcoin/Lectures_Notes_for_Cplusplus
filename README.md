@@ -700,31 +700,35 @@ void Test6()
 	
 ## :fire: 3.程序代码评价或者找错
 
-1、下面的代码输出是什么,为什么？ void foo(void)
+1、下面的代码输出是什么,为什么？ 
+```C++
+	void foo(void)
 	{
 	unsigned int a = 6; 
 	int b = -20;
 	(a+b > 6) ? puts("> 6") : puts("<= 6");
 	}
-
+```
 	这个问题测试你是否懂得 C 语言中的整数自动转换原则,我发现有些开发者懂得极少这些东西。不管如何,这无符号整型问题的答案是输出是 ">6"。
 	原因是当表达式中存在有符号类型和无符号类型时所有的操作数都自动转换为无符号类型。因此-20变成了一个非常大的正整数,所以该表达式计算出的结果大于6。
 	这一点对于应当频繁用到无符号数据类型的嵌入式系统来说是丰常重要的。如果你答错了这个问题,你也就到了得不到这份工作的边缘。
 
 2、评价下面的代码片断:
+```C++
 	unsigned int zero = 0;
 	unsigned int compzero = 0xFFFF;
 	/*1's complement of zero */
-	
+```	
 	对于一个 int 型不是16位的处理器为说,上面的代码是不正确的。应编写如下:
 		unsigned int compzero = ~0;
 	这一问题真正能揭露出应试者是否懂得处理器字长的重要性。在我的经验里,好的嵌入式程序员非常准确地明白硬件的细节和它的局限,
 	然而 PC 机程序往往把硬件作为一个无法避免的烦恼。
 
 3、 C 语言同意一些令人震惊的结构,下面的结构是合法的吗,如果是它做些什么？
+```C++
 	int a = 5, b = 7, c; 
 	c = a+++b;
-
+```
 	这个问题将做为这个测验的一个愉快的结尾。不管你相不相信,上面的例子是完全合乎语法的。问题是编译器如何处理它？水平不高的编译作者实际上会争论这个问题,
 	根据最处理原则,编译器应当能处理尽可能所有合法的用法。因此,上面的代码被处理成:
 	c = a++ + b;
@@ -733,6 +737,7 @@ void Test6()
 	代码的可读性,代码的可修改性的好的话题。
 
 4、设有以下说明和定义:
+```C++
 	typedef union 
 		{
 			long i;
@@ -748,7 +753,7 @@ void Test6()
 	} too; 
 
 	DATE max;
-
+```
 	则语句
 	printf("%d",sizeof(struct date)+sizeof(max));
 	的执行结果是？
@@ -758,6 +763,7 @@ void Test6()
 	当然…在某些16位编辑器下, int 可能是2字节,那么结果是 int2 + DATE10 + double8 = 20 
 
 5、请写出下列代码的输出内容
+```C++
 	#include main()
 	{
 		int a,b,c,d; a=10;
@@ -765,10 +771,11 @@ void Test6()
 		printf("b,c,d:%d,%d,%d",b,c,d）;
 		return 0;
 	}
-	
+```
 	答:10,12,120
 
 6、写出下列代码的输出内容
+```C++
 	#include
 	int inc(int a)
 	{
@@ -797,10 +804,12 @@ void Test6()
 		show(multi,10,&a); 
 		return 0;
 	}
+```
 		答:110
 
 7、请找出下面代码中的所以错误
 说明:以下代码是把一个字符串倒序,如"abcd"倒序后变为"dcba" 
+```C++
 	#include"string.h"
 	main()
 	{
@@ -815,8 +824,9 @@ void Test6()
 		printf("%s",dest);
 		return 0;
 	}
-
+```
 	答 : 方法1:
+```C++
 	int main()
 	{
 		char* src = "hello,world"; 
@@ -831,9 +841,11 @@ void Test6()
 		free(dest); // 使用完,应当释放空间,以免造成内存汇泄露
 		return 0;
 	}
+```
 
 方法2: 
-	#include #include main()
+```C++
+	main()
 	{
 		char str[]="hello,world"; 
 		int len=strlen(str);
@@ -847,17 +859,20 @@ void Test6()
 		printf("%s",str); 
 		return 0;
 	}
+```
 
 8、请问下面程序有什么错误? 
+```C++
 	int a[60][250][1000],i,j,k;
 	for(k=0;k<=1000;k++) 
 		for(j=0;j<250;j++) 
 			for(i=0;i<60;i++)
 				a[i][j][k]=0;
-	
+```
 	答案:把循环语句内外换一下
 
 9、请问下面程序会出现什么情况?
+```C++
 	#define Max_CB 500
 	void LmiQueryCSmd(Struct MSgCB * pmsg)
 	   {
@@ -866,16 +881,17 @@ void Test6()
 			for(ucCmdNum=0;ucCmdNum{
 				......;
 			}
-
+```
 	答案:死循环
 
 10、以下3个有什么区别
-
+```C++
 	char * const p; //常量指针,p 的值不可以修改
 	char const * p;//指向常量的指针,指向的常量值不可以改
 	const char *p; //和 char const *p
-
+```
 11、写出下面的结果
+```C++
 	char str1[] = "abc"; 
 	char str2[] = "abc";
 	const char str3[] = "abc"; 
@@ -888,12 +904,13 @@ void Test6()
 	cout << ( str3 == str4 ) << endl; 
 	cout << ( str5 == str6 ) << endl; 
 	cout << ( str7 == str8 ) << endl; 
-
+```
 	结果是:0 0 1 1
 	解答:str1,str2,str3,str4是数组变量,它们有各自的内存空间;
 	而 str5,str6,str7,str8是指针,它们指向相同的常量区域。
 
 12、以下代码中的两个 sizeof 用法有问题吗？
+```C++
 	void UpperCase( char str[] ) // 将 str中的小写字母转换成大写字母
 	{
 	for(size_t i=0; i<strlen(str);i++）
@@ -904,20 +921,20 @@ void Test6()
 	cout << "str 字符长度为: " << sizeof(str)/sizeof(str[0]) << endl; 
 	UpperCase(str);
 	cout << str << endl;
-	
-
+```
 	答:函数内的 sizeof 有问题。根据语法,sizeof 如用于数组,只能测出静态数组的大小,无法检测动态分配的或外部数组大小。
 	  函数外的 str 是一个静态定义的数组,因此其大小为6, 函数内的 str 实际只是一个指向字符串的指针,没有任何额外的与数组相关的信息,
 	  因此 sizeof 作用于上只将其当指针看,一个指针为4个字节,因此返回4。
 
 13、写出输出结果
+```C++
 	main()
 	  {
 		  int a[5]={1,2,3,4,5};
 		  int *ptr=(int *)(&a+1); 
 		  printf("%d,%d",*(a+1),*(ptr-1));
 	  }
-	
+```	
 	输出:2,5
 	
 	*(a+1）就是 a[1],*(ptr-1)就是 a[4],执行结果是2,5
@@ -928,7 +945,8 @@ void Test6()
 	所以 prt-1只会减去 sizeof(int*) a,&a 的地址是一样的,但意思不一样,a是数组首地址,也就是 a[0]的地址,&a 是对象（数组）首地址,
 	a+1是数组下一元素的地址,即 a[1],&a+1是下一个对象的地址,即 a[5].
 
-14、请问以下代码有什么问题: 
+14、请问以下代码有什么问题:
+```C++ 
 	int main()
 	{
 		char a;
@@ -937,14 +955,15 @@ void Test6()
 		printf(str);
 		return 0;
 	}
-	
+```	
 	没有为 str 分配内存空间,将会发生异常,问题出在将一个字符串复制进一个字符变量指针所指地址。
 	虽然可以正确输出结果,但因为越界进行内在读写而导致程序崩溃。
-
+```C++
 	char* s="AAA"; 
 	printf("%s",s);
 	s[0]='B';
 	printf("%s",s);
+```
 	有什么错？
 
 	"AAA"是字符串常量。s 是指针,指向这个字符串常量,所以声明s 的时候就有问题。
@@ -952,21 +971,23 @@ void Test6()
 	然后又因为是常量,所以对是 s[0]的赋值操作是不合法的。
 
 15、有以下表达式:
+```C++
 	int a=248; 
 	b=4;
 	int const c=21;
 	const int *d=&a; 
 	int *const e=&b;
 	int const *f const =&a;
-	
+```	
 	请问下列表达式哪些会被编译器禁止？为什么？
+```C++
 	*c=32;
 	d=&b;
 	*d=43;
 	e=34;
 	e=&a;
 	f=0x321f;
-	
+```	
 	*c 这是个什么东东,禁止。
 	*d 说了是const, 禁止 
 	e = &a  说了是 const 禁止
@@ -974,11 +995,10 @@ void Test6()
 
 16、交换两个变量的值,不使用第三个变量。即 a=3,b=5,交换之后 a=5,b=3;
 	有两种解法, 一种用算术算法, 一种用^(异或) 
-	
 	a = a + b;
 	b = a - b;
 	a = a - b; 
-	
+
 	or
 	
 	a = a^b;// 只能对 int,char..
@@ -989,6 +1009,7 @@ void Test6()
 	a ^= b ^= a;
 
 17、下面的程序会出现什么结果
+```C++
 	#include
 	void getmemory(char *p)
 	{
@@ -1003,13 +1024,14 @@ void Test6()
 		free(str); 
 		return 0;
 	}
-
+```
 	程序崩溃,getmemory 中的 malloc 不能返回动态内存, free（）对 str 操作很危险
 
 18、下面的语句会出现什么结果？ 
+```C++
 	char szstr[10]; 
 	strcpy(szstr,"0123456789");
-	
+```
 	答案:长度不一样,会造成非法的OS,应该改为 char szstr[11];
 
 19、(void *)ptr 和 (*(void**))ptr 的结果是否相同？ 
@@ -1017,13 +1039,14 @@ void Test6()
 	(void *)ptr  和 (*(void**))ptr 值是相同的
 
 20、问函数既然不会被其它函数调用,为什么要返回1？ 
+```C++
 	int main()
 	{
 		int x=3; 
 		printf("%d",x); 
 		return 1;
 	}
-
+```
 	答:main 中,c 标准认为0表示成功,非0表示错误。具体的值是某中具体出错信息
 
 21、对绝对地址0×100000 赋值且想让程序跳转到绝对地址是0×100000 去执行
@@ -1037,11 +1060,12 @@ void Test6()
 	*((voidFuncPtr)0×100000)(); 
 
 22、输出多少？并分析过程
+```C++
 	unsigned short A = 10; 
 	printf("~A = %u\n", ~A); 
 	char c=128; 
 	printf("c=%d\n",c);
-
+```
 	第一题,～A ＝0xfffffff5,int 值 为－11,但输出的是 uint。所以输出4294967285
 	第二题,c＝0×10, 输出的是 int,最高位为1,是负数,所以它的值就是0×00 的补码就是128, 所以输出－128。
 	
@@ -1049,6 +1073,7 @@ void Test6()
 
 
 23、分析下面的程序:
+```C++
 	void GetMemory(char **p,int num)
 	{
 		*p=(char *)malloc(num);
@@ -1066,7 +1091,7 @@ void Test6()
 		printf("\n str is %s",str); 
 		getchar();
 	}
-
+```
 	问输出结果是什么？希望大家能说说原因,先谢谢了输出 str is world。
 	free 只是释放的 str 指向的内存空间,它本身的值还是存在的. 所以 free 之后,有一个好的习惯就是将 str=NULL.
 	此时 str 指向空间的内存已被回收,如果输出语句之前还存在分配空间的操作的话,这段存储空间是可能被重新分配给其他变量的,
@@ -1077,6 +1102,7 @@ void Test6()
 	因此你是可以继续访问这块地址的,只不过。。。。。。。。楼上都说过了,最好别这么干。
 
 24、char a[10],strlen(a)为什么等于15？运行的结果
+```C++
 	#include "stdio.h"
 	#include "string.h" 
 	void main()
@@ -1084,16 +1110,17 @@ void Test6()
 		char aa[10]; 
 		printf("%d",strlen(aa));
 	}
-
+```
 	sizeof()和初不初始化,没有关系; strlen()和初始化有关。
 
 	char (*str)[20];/*str 是一个数组指针,即指向数组的指针．*/ 
 	char *str[20];/*str 是一个指针数组,其元素为指针型数据．*/ 
 
 25、
+```C++
 	long a=0×801010;
 	a+5=?
-	
+```
 	答:0×801010 用二进制表示为:"1000 0000 0001 0000 0001 0000",
 	十进制的值为8392720, 再加上5就是8392725
 
