@@ -27,7 +27,7 @@ void Test(void)
 {
     char *str = NULL;
     GetMemory(str);
-    strcpy(str, hello world);
+    strcpy(str, "hello world");
     printf(str);
 }
 /*请问运行Test函数后会是什么样的结果？
@@ -47,7 +47,7 @@ void Test(void)
 //    ★NO.2
 char *GetMemory(void)
 {
-    char p[] = hello world;
+    char p[] = "hello world";
     retrun p;
 }
 
@@ -67,7 +67,7 @@ void Test(void)
 也就是说str所指向的内容将不确定是什么东西．*/
 
 //    ★NO.3
-void GetMemory2(char **p, int num)
+void GetMemory(char **p, int num)
 {
     *p = (char *)malloc(num);
 }
@@ -76,7 +76,7 @@ void Test(void)
 {
     char *str = NULL;
     GetMemory(&str, 100);
-    strcpy(str, hello);
+    strcpy(str, "hello");
     printf(str);
 }
 /*请问运行Test函数后会是什么样的结果？
@@ -89,14 +89,15 @@ void Test(void)
 void Test(void)
 {
     char *str = (char *)malloc(100);
-    strcpy(str, hello);
+    strcpy(str, "hello");
     free(str);
     if (str != NULL)
     {
-        strcpy(str, world);
+        strcpy(str, "world");
         printf(str);
     }
 }
+
 
 void GetMemory1(char *p)
 {
@@ -3361,109 +3362,4 @@ void swap(int a,int b)
     1.设全局变量的作用:增加了函数间数据联系的渠道
     2.建议不再必要的时候不要使用全局变量,因为a.全局变量在程序的全部执行过程中都占用存储单元;
     b.它使函数的通用性降低了c.使用全局变量过多,会降低程序的清晰性
-    3.如果外部变量在文件开头定义,则在整个文件范围内都可以使用该外部变量,如果不再文件开头定义,按上面规定作用范围只限于定义点到文件终了。
-    如果在定义点之前的函数想引用该外部变量,则应该在该函数中用关键字extern作外部变量说明
-    4.如果在同一个源文件中,外部变量与局部变量同名,则在局部变量的作用范围内,外部变量不起作用;
-    
-    静态变量:在程序运行期间分配固定的存储空间的变量,叫做静态变量 
-
-41、写一个"标准"宏
-    答:交换两个参数值的宏定义为:
-```C++
-    #define SWAP(a,b) (a)=(a)+(b);
-    (b)=(a)-(b);
-    (a)=(a)-(b);
-```
-    输入两个参数,输出较小的一个:
-```C++
-    #define MIN(A,B) (((A) < (B))? (A) : (B))
-```
-    表明1年中有多少秒（忽略闰年问题）:
-```C++
-    #define SECONDS_PER_YEAR (60 * 60 * 24 * 365) UL 
-```    
-    #define DOUBLE(x) x+x  
-    与 
-    #define DOUBLE(x) （（x）+（x））
-    i = 5*DOUBLE(5); i 为30 
-    i = 5*DOUBLE(5); i 为50
-
-    已知一个数组table,用一个宏定义,求出数据的元素个数
-```C++
-    #define NTBL (sizeof(table)/sizeof(table[0]))
-```
-42、A.c 和 B.c 两个 c 文件中使用了两个相同名字的 static 变量,编译的时候会不会有问题? 这两个 static 变量会保存到哪里（栈还是堆或者其他的）?
-    
-	答:static 的全局变量,表明这个变量仅在本模块中有意义,不会影响其他模块。他们都放在数据区,但是编译器对他们的命名是不同的。
-    如果要使变量在其他模块也有意义的话,需要使用 extern 关键字。
-
-43、一个单向链表,不知道头节点,一个指针指向其中的一个节点,问如何删除这个指针指向的节点？
-    
-	答:将这个指针指向的 next 节点值copy 到本节点,将 next 指向next->next,并随后删除原next
-    指向的节点。
-
-    
-## :fire: 3.程序代码评价或者找错
-
-1、下面的代码输出是什么,为什么？ 
-```C++
-    void foo(void)
-    {
-    unsigned int a = 6; 
-    int b = -20;
-    (a+b > 6) ? puts("> 6") : puts("<= 6");
-    }
-```
-    这个问题测试你是否懂得 C 语言中的整数自动转换原则,我发现有些开发者懂得极少这些东西。不管如何,这无符号整型问题的答案是输出是 ">6"。
-    原因是当表达式中存在有符号类型和无符号类型时所有的操作数都自动转换为无符号类型。因此-20变成了一个非常大的正整数,所以该表达式计算出的结果大于6。
-    这一点对于应当频繁用到无符号数据类型的嵌入式系统来说是丰常重要的。如果你答错了这个问题,你也就到了得不到这份工作的边缘。
-
-2、评价下面的代码片断:
-```C++
-    unsigned int zero = 0;
-    unsigned int compzero = 0xFFFF;
-    /*1's complement of zero */
-```    
-    对于一个 int 型不是16位的处理器为说,上面的代码是不正确的。应编写如下:
-        unsigned int compzero = ~0;
-	这一问题真正能揭露出应试者是否懂得处理器字长的重要性。在我的经验里,好的嵌入式程序员非常准确地明白硬件的细节和它的局限,
-    然而 PC 机程序往往把硬件作为一个无法避免的烦恼。
-
-3、 C 语言同意一些令人震惊的结构,下面的结构是合法的吗,如果是它做些什么？
-```C++
-    int a = 5, b = 7, c; 
-    c = a+++b;
-```
-    这个问题将做为这个测验的一个愉快的结尾。不管你相不相信,上面的例子是完全合乎语法的。问题是编译器如何处理它？水平不高的编译作者实际上会争论这个问题,
-    根据最处理原则,编译器应当能处理尽可能所有合法的用法。因此,上面的代码被处理成:
-    c = a++ + b;
-    因此, 这段代码持行后 a = 6, b = 7, c = 12。
-    如果你知道答案,或猜出正确答案,做得好。如果你不知道答案,我也不把这个当作问题。我发现这个问题的最大好处是这是一个关于代码编写风格,
-    代码的可读性,代码的可修改性的好的话题。
-
-4、设有以下说明和定义:
-```C++
-    typedef union 
-        {
-            long i;
-            int k[5];
-            char c;
-        } DATE;
-
-    struct data 
-    { 
-        int cat;
-        DATE cow;
-        double dog;
-    } too; 
-
-    DATE max;
-```
-    则语句
-    printf("%d",sizeof(struct date)+sizeof(max));
-    的执行结果是？
-    
-    答 、结果是:52。DATE 是一个 union, 变量公用空间. 里面最大的变量类型是 int[5], 占用20个字节. 所以它的大小是20
-    data 是一个 struct, 每个变量分开占用空间. 依次为 int4 + DATE20 + double8 = 32.所以结果是 20 + 32 = 52.
-    当然…在某些16位编辑器下, int 可能是2字节,那么结果是 int2 + DATE10 + double8 = 20 
-
+    3.
